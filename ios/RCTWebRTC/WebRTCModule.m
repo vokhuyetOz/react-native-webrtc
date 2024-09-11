@@ -10,6 +10,7 @@
 #import "WebRTCModule+RTCPeerConnection.h"
 #import "WebRTCModule.h"
 #import "WebRTCModuleOptions.h"
+#import <react_native_webrtc/react_native_webrtc-Swift.h>
 
 @interface WebRTCModule ()
 @end
@@ -81,6 +82,10 @@
             dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, QOS_CLASS_USER_INITIATED, -1);
         _workerQueue = dispatch_queue_create("WebRTCModule.queue", attributes);
     }
+    
+    if (@available(iOS 15.0, *)) {
+        PipViewController.webrtcModule = self;
+    }
 
     return self;
 }
@@ -98,9 +103,34 @@
     }
     return stream;
 }
++ (void)preparePiP:(UIView *)view {
+    if (@available(iOS 15.0, *)) {
+        [PipViewController preparePictureInPictureWithRootView:view];
+    }
+}
 
 RCT_EXPORT_MODULE();
 
+RCT_EXPORT_METHOD(startPIP) {
+    if (@available(iOS 15.0, *)) {
+        [PipViewController.shared startPIP];
+    }
+}
+RCT_EXPORT_METHOD(stopPIP) {
+    if (@available(iOS 15.0, *)) {
+        [PipViewController.shared stopPIP];
+    }
+}
+RCT_EXPORT_METHOD(enablePIP: (NSString *)tag) {
+    if (@available(iOS 15.0, *)) {
+        [PipViewController.shared enablePIPWithReactTag:tag];
+    }
+}
+RCT_EXPORT_METHOD(disablePIP: (NSString *)tag) {
+    if (@available(iOS 15.0, *)) {
+        [PipViewController.shared disablePIPWithReactTag:tag];
+    }
+}
 - (dispatch_queue_t)methodQueue {
     return _workerQueue;
 }

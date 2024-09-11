@@ -6,6 +6,7 @@
 #import <React/RCTEventEmitter.h>
 
 #import <WebRTC/WebRTC.h>
+#import <WebRTC/RTCVideoRenderer.h>
 
 static NSString *const kEventPeerConnectionSignalingStateChanged = @"peerConnectionSignalingStateChanged";
 static NSString *const kEventPeerConnectionStateChanged = @"peerConnectionStateChanged";
@@ -35,5 +36,6 @@ static NSString *const kEventPeerConnectionOnTrack = @"peerConnectionOnTrack";
 @property(nonatomic, strong) NSMutableDictionary<NSString *, RTCMediaStreamTrack *> *localTracks;
 
 - (RTCMediaStream *)streamForReactTag:(NSString *)reactTag;
++ (void)preparePiP:(UIView *)view;
 
 @end
