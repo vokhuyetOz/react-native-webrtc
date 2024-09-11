@@ -30,6 +30,23 @@ Logger.enable(`${Logger.ROOT_PREFIX}:*`);
 
 // Add listeners for the native events early, since they are added asynchronously.
 setupNativeEvents();
+/**
+ * ios only
+ */
+const startPIP = WebRTCModule.startPIP;
+/**
+ * ios only
+ */
+const stopPIP = WebRTCModule.stopPIP;
+/**
+ * ios only
+ */
+const enablePIP = WebRTCModule.enablePIP;
+/**
+ * ios only
+ */
+const disablePIP = WebRTCModule.disablePIP;
+
 
 export {
     RTCIceCandidate,
@@ -47,7 +64,11 @@ export {
     type MediaTrackSettings,
     mediaDevices,
     permissions,
-    registerGlobals
+    registerGlobals,
+    startPIP,
+    stopPIP,
+    enablePIP,
+    disablePIP
 };
 
 declare const global: any;
