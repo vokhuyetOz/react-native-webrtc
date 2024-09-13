@@ -244,7 +244,9 @@ CMSampleBufferRenderer = { _,_,_  in }
             
             let videoTrack = PipViewController.webrtcModule?.stream(forReactTag: reactTag).videoTracks.first
             if let videoTrack = videoTrack {
-                videoTrack.remove(PipViewController.frameRenderer!)
+                if(PipViewController.frameRenderer != nil) {
+                    videoTrack.remove(PipViewController.frameRenderer!)
+                }
             }
             PipViewController.sampleBufferVideoCallView?.removeFromSuperview()
             PipViewController.sampleBufferVideoCallView = nil
