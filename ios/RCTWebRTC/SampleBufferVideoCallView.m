@@ -37,6 +37,7 @@
         } else {
             _renderer = self.sampleBufferLayer;
         }
+        self.transform = CGAffineTransformMakeScale(-1.0, 1.0);
     }
     return self;
 }
@@ -64,11 +65,10 @@
             CGSize size = self.bounds.size;
             scale = size.height / size.width;
         }
-        
-        self.sampleBufferLayer.transform = CATransform3DConcat(
-            CATransform3DMakeRotation(rotation / 180.0 * M_PI, 0.0, 0.0, 1.0),
-            CATransform3DMakeScale(scale, scale, 1)
-        );
+//        self.sampleBufferLayer.transform = CATransform3DConcat(
+//            CATransform3DMakeRotation(rotation / 180.0 * M_PI, 0.0, 0.0, 1.0),
+//            CATransform3DMakeScale(scale, scale, 1)
+//        );
     }
 }
 
