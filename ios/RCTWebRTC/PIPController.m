@@ -271,21 +271,29 @@
     NSString *title = options[@"title"];
     NSString *description = options[@"description"];
     NSString *content = options[@"content"];
+    NSString *color = options[@"color"];
+    NSLog(@"title %@", title);
+    NSLog(@"description %@", description);
+    NSLog(@" b %@", content);
     
     if(title){
         self.tvTitle.text = title;
     }
     if(description){
         self.tvDescription.text = description;
+    } else {
+        self.tvDescription.text = @"";
     }
     if(content){
         self.tvContent.text = content;
-        NSInteger intValue = [content integerValue];
-        if(intValue <= 20) {
+        
+        if([color  isEqual: @"red"]) {
             self.tvContent.textColor = [UIColor redColor];
         } else {
             self.tvContent.textColor = [UIColor blackColor];
         }
+    } else {
+        self.tvContent.text = @"";
     }
     [self updateTextViewConstraints];
 }

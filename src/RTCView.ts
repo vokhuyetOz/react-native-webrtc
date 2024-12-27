@@ -112,6 +112,7 @@ export interface RTCIOSPIPOptions {
     title?: string;
     description?: string;
     content?: string;
+    color?: string;
   };
 }
 export default requireNativeComponent<RTCVideoViewProps>('RTCVideoView');
