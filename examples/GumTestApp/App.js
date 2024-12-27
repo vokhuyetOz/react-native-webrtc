@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   Button,
   SafeAreaView,
@@ -21,8 +21,20 @@ import { mediaDevices, startIOSPIP, stopIOSPIP, RTCPIPView } from 'react-native-
 const App = () => {
   const view = useRef()
   const [stream, setStream] = useState(null);
+  const [pip, setPip] = useState(false);
+  const [content, setContent] = useState(0);
+
+  useEffect(() => {
+    const inteval = setInterval(() => {
+      setContent(pre=> pre + 1);
+    }, 1000);
+    return () => {
+     clearInterval(inteval);
+    }
+  },[]);
   const start = async () => {
     console.log('start');
+    
     if (!stream) {
       try {
         const s = await mediaDevices.getUserMedia({ video: true });
@@ -33,9 +45,11 @@ const App = () => {
     }
   };
   const startPIP = () => {
+    setPip(true);
     startIOSPIP(view);
   };
   const stopPIP = () => {
+    setPip(false);
     stopIOSPIP(view);
   };
   const stop = () => {
@@ -47,12 +61,20 @@ const App = () => {
   };
   let pipOptions = {
     startAutomatically: true,
-    fallbackView: (<View style={{ height: 50, width: 50, backgroundColor: 'red' }} />),
     preferredSize: {
-      width: 400,
-      height: 800,
-    }
+      width: 200,
+      height: 400,
+    },
+    extraOptions: {
+      title: `title`,
+      // description: 'description',
+      content: `${content}`,
+    },
   }
+  let url =stream?.toURL();
+  // if(pip){
+  //   url = undefined;
+  // }
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -61,7 +83,8 @@ const App = () => {
         stream &&
         <RTCPIPView
             ref={view}
-            streamURL={stream.toURL()}
+            mirror={true}
+            streamURL={url}
             style={styles.stream}
             iosPIP={pipOptions} >
         </RTCPIPView>

@@ -108,5 +108,10 @@ export interface RTCIOSPIPOptions {
    * Defaults to true.
    */
   stopAutomatically?: boolean;
+  extraOptions?: {
+    title?: string;
+    description?: string;
+    content?: string;
+  };
 }
 export default requireNativeComponent<RTCVideoViewProps>('RTCVideoView');

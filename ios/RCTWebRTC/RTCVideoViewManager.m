@@ -142,6 +142,9 @@
         _mirror = mirror;
 
         self.videoView.transform = mirror ? CGAffineTransformMakeScale(-1.0, 1.0) : CGAffineTransformIdentity;
+        if(_pipController!= nil){
+            _pipController.mirror = mirror;
+        }
     }
 }
 
@@ -161,7 +164,8 @@
     BOOL stopAutomatically = YES;
 
     CGSize preferredSize = CGSizeZero;
-
+    NSDictionary *extraOptions = nil;
+    
     if ([pipOptions objectForKey:@"enabled"]) {
         enabled = [pipOptions[@"enabled"] boolValue];
     }
@@ -180,6 +184,9 @@
             preferredSize = CGSizeMake([width doubleValue], [height doubleValue]);
         }
     }
+    if ([pipOptions objectForKey:@"extraOptions"]) {
+        extraOptions = pipOptions[@"extraOptions"];
+    }
     
     if (!enabled) {
         _pipController = nil;
@@ -190,11 +197,12 @@
         _pipController = [[PIPController alloc] initWithSourceView:self];
         _pipController.videoTrack = _videoTrack;
     }
-    
+    _pipController.mirror = _mirror;
     _pipController.startAutomatically = startAutomatically;
     _pipController.stopAutomatically = stopAutomatically;
     _pipController.objectFit = _objectFit;
     _pipController.preferredSize = preferredSize;
+    _pipController.extraOptions = extraOptions;
 }
 
 - (void) API_AVAILABLE(ios(15.0)) startPIP {

@@ -57,6 +57,7 @@
 }
 
 - (void)recalculateScale:(RTCVideoRotation)rotation {
+    
     if (self.currentRotation != rotation) {
         self.currentRotation = rotation;
         
@@ -74,12 +75,13 @@
 
 /** The size of the video frame. */
 - (void)setSize : (CGSize)size{
-    
+    NSLog(@"setSize: %f", size.width);
+    NSLog(@"setSize: %f", size.height);
 }
 
 /** The frame to be displayed. */
 - (void)renderFrame:(nullable RTC_OBJC_TYPE(RTCVideoFrame) *)frame {
-
+    
     if (!_shouldRender) {
         return;
     }
@@ -89,7 +91,6 @@
     if (sampleBuffer == nil) {
         return;
     }
-
     dispatch_async(dispatch_get_main_queue(), ^{
 
         if (self.renderer.requiresFlushToResumeDecoding) {

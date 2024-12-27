@@ -20,5 +20,7 @@ API_AVAILABLE(ios(15.0))
 - (void)stopPIP;
 - (void)insertFallbackView:(UIView *)subview;
 - (void)setObjectFit:(RTCVideoViewObjectFit)fit;
+- (void)setMirror:(BOOL)miror;
+- (void)setExtraOptions:(NSDictionary *)extraOptions;
 
 @end
