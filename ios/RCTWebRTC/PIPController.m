@@ -117,7 +117,11 @@
 
 - (void)addCustomViewToWindow {
     [self updateTextViewConstraints];
-    if(self.customView.superview){
+   
+    if(_videoTrack){
+        if(self.customView.superview){
+            [self.customView removeFromSuperview];
+        }
         return;
     }
     UIWindow *firstWindow = [UIApplication sharedApplication].windows.firstObject;
